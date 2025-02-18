@@ -63,50 +63,47 @@
   - Automatically change status to “failed” after threshold reached and notify an admin.  
 - **Deliverables:**  
   - Admin dashboard for managing periodicals, error logs, and retry statuses.
-
+    
 ### 5. Nightly Article Pull  
 - **Process:**  
-  - Schedule a nightly background job for crawling each periodical.  
-  - Each job retrieves articles, parses content, and stores raw data.  
+  - Schedule a nightly background job to crawl designated periodicals and retrieve new articles.  
+  - For each article, parse the content and generate a lightweight embedding using a candidate model (e.g., OpenAI’s `text-embedding-ada-002` or a Sentence Transformer).  
+  - Store both the raw article data and its embedding in a vector database (e.g., FAISS, Pinecone, or Milvus).  
 - **Error Logging:**  
   - Capture parsing and network errors in a centralized log.  
-  - Update corresponding periodical status if failures occur repeatedly.  
-- **Data Linking:**  
-  - Associate articles with relevant clients/initiatives based on keywords.  
+  - Update periodical status and trigger automated retries upon repeated failures.  
 - **Deliverables:**  
-  - A robust scheduled job system with detailed error reporting and logging.
+  - A robust scheduled job system that performs crawling, embedding generation, storage, and error reporting.
 
-### 6. Relevancy Scoring  
-- **Scoring Mechanism:**  
-  - Use a small, cost-effective ML model to score articles for relevancy and sentiment on a per-client/per-initiative basis.  
-  - **Options:**  
-    - Direct prompt evaluation with a lightweight transformer.  
-    - Generate embeddings (e.g., with OpenAI embeddings, or a distilled model) and perform a vector DB search (consider Pinecone or similar).  
-  - **Question:** Is there a hybrid approach to first filter and then fine-tune with a more expensive model?  
-- **Integration:**  
-  - Form client/initiative prompt using key inputs and then evaluate each article.  
-  - Store the score with each article record.  
+### 6. Relevancy & Sentiment Pipeline  
+- **Daily Query Processing:**  
+  - For each brand/initiative, convert its guidelines into a query embedding. (Highly cacheable)  
+  - Perform an approximate nearest neighbor search in the vector database to retrieve the top 10–50 candidate articles based on baseline relevance.  
+- **Post-Processing: Sentiment Analysis & Brand-Specific Rules:**  
+  - **Entity-Level Sentiment:**  
+    - Apply Named Entity Recognition (NER) to detect brand mentions in each retrieved article.  
+    - Use an aspect-based sentiment analysis model (e.g., fine-tuned BERT variants or VADER for lighter use cases) to evaluate sentiment in context.  
+  - **Custom Brand Rules:**  
+    - Integrate brand-specific guidelines (e.g., “mentions with competitor X are critical” or “references to a vacuum cleaner indicate irrelevance”) to adjust the sentiment score.  
+  - **Final Scoring:**  
+    - Combine the baseline relevance score from the embedding search with the sentiment adjustments to produce a refined ranking per brand/initiative.  
 - **Deliverables:**  
-  - Prototype scoring engine and API endpoints for score retrieval.  
-  - Benchmark report comparing direct prompt vs. embedding-based search.
+  - A prototype scoring engine with API endpoints and benchmark reports comparing baseline versus sentiment-enhanced relevancy.
 
 ### 7. Morning Article List & Pitch Drafts  
 - **Article Listing:**  
-  - Retrieve articles sorted by relevancy score with a cutoff for “top” articles.  
-  - Option to view “below the line” articles (lower score) for extended coverage.  
-  - **Content Generation:**  
-    - Generate a short (<50 word) summary focused on brand/initiative relevance using a lightweight summarization tool.  
-- **Pitch Drafts:**  
-  - Automatically generate pre-filled email drafts referencing the brand guidelines and pitch samples.  
-  - Use URL parameters for Gmail (e.g., `to`, `su`, `body`) to allow quick redirection.  
-    - **Question:** Are Gmail URL parameters consistent across all devices and email clients?  
+  - Retrieve and display articles sorted by the refined scores combining relevance and sentiment.  
+  - Provide options for viewing both top-tier articles and a broader “below the line” set for extended coverage.  
+- **Content Generation:**  
+  - Automatically generate a concise (<50 word) summary for each article, highlighting its relevance to the brand/initiative.  
+- **Pitch Draft Generation:**  
+  - Offer a “Pitch Journalist” link that pre-fills an email draft with references to the brand guidelines and pitch samples using URL parameters.  
+  - Note: V1 does not send emails directly; users will need to copy or export the draft.  
 - **Export Options:**  
-  - Provide CSV export functionality compatible with Google Sheets/Airtable.  
+  - Include CSV export functionality for integration with external tools like Google Sheets or Airtable.  
 - **Deliverables:**  
-  - Automated daily article list generation job.  
-  - Email draft generation service with direct URL linking.  
-  - CSV export tool integrated into the dashboard.
-
+  - An automated daily article list generation job, integrated with a refined scoring mechanism, email draft generation service, and CSV export tool within the dashboard.
+    
 ### 8. User Management & Permissions  
 - **Roles & Models:**  
   - **User Model:** Standard Devise integration for email/password authentication.  
