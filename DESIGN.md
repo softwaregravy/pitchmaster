@@ -16,11 +16,12 @@
 - **Logging & Monitoring:**  
   - Implement detailed logs for errors and parsing failures.  
   - Alert system for repeated failures on a given periodical.  
-- **Deliverables:**  
-  - POC for both commercial and in-house solutions.  
-  - A decision document based on performance, cost, and scalability.
-
----
+- **Deliverables:**
+  - Get demos of the commercial products
+  - Reach out to OS maintainers for any advice
+  - A decision on which approach to try first
+  - POC for whichever approach we want
+  - Revisit Decision based on learnings
 
 ### 2. Client Setup & Brand Guidelines  
 - **Data Models:**  
@@ -31,12 +32,10 @@
   - Fallback to traditional forms for direct editing.  
 - **Integration:**  
   - Ensure that uploaded materials (PDFs, images, text) auto-populate guideline fields.  
-  - **Question:** How should we prioritize auto-filled content versus manual edits?  
+  - **Question:** How should we prioritize auto-filled content versus manual edits?
+    - Suggested approach. Keep all assets saved, use content from assets in the context of the chat to update the fields. 
 - **Deliverables:**  
-  - Detailed ERD for Client and BrandGuideline models.  
-  - API endpoints for CRUD operations with validations.
-
----
+  - Detailed ERD for Client and Brand models.  
 
 ### 3. Initiatives  
 - **Data Model:**  
@@ -51,9 +50,7 @@
   - Documentation on form flows and expected user inputs.
 - **Question:** Are there additional initiative attributes (e.g., KPIs) we should capture now?
 
----
-
-### 4. Periodicals Onboarding & Tracking  
+### 4. Periodicals Onboarding & Tracking (if homegrown)
 - **Data Model:**  
   - **Periodical Model:**  
     - Fields: name, base URL, crawl frequency, status (active, retry, failed), last crawl date, error log.  
@@ -67,22 +64,17 @@
 - **Deliverables:**  
   - Admin dashboard for managing periodicals, error logs, and retry statuses.
 
----
-
 ### 5. Nightly Article Pull  
 - **Process:**  
-  - Schedule a nightly background job (Sidekiq/ActiveJob) for crawling each periodical.  
+  - Schedule a nightly background job for crawling each periodical.  
   - Each job retrieves articles, parses content, and stores raw data.  
 - **Error Logging:**  
   - Capture parsing and network errors in a centralized log.  
   - Update corresponding periodical status if failures occur repeatedly.  
 - **Data Linking:**  
   - Associate articles with relevant clients/initiatives based on keywords.  
-  - **Question:** What is our strategy for mapping articles to multiple initiatives if keywords overlap?  
 - **Deliverables:**  
   - A robust scheduled job system with detailed error reporting and logging.
-
----
 
 ### 6. Relevancy Scoring  
 - **Scoring Mechanism:**  
@@ -97,8 +89,6 @@
 - **Deliverables:**  
   - Prototype scoring engine and API endpoints for score retrieval.  
   - Benchmark report comparing direct prompt vs. embedding-based search.
-
----
 
 ### 7. Morning Article List & Pitch Drafts  
 - **Article Listing:**  
@@ -117,8 +107,6 @@
   - Email draft generation service with direct URL linking.  
   - CSV export tool integrated into the dashboard.
 
----
-
 ### 8. User Management & Permissions  
 - **Roles & Models:**  
   - **User Model:** Standard Devise integration for email/password authentication.  
@@ -129,12 +117,9 @@
   - Ensure pod-based restrictions:  
     - Pod-Members see only their assigned clients and initiatives.  
     - Pod-Leaders see all within their pod; Admins see firm-wide.  
-  - **Question:** Should we allow custom roles or granular permission overrides in the future?  
 - **Deliverables:**  
   - Complete user management interface with role assignment.  
   - Documentation on permission rules and testing for role-based access.
-
----
 
 ### 9. Activity Log  
 - **Logging Actions:**  
@@ -151,7 +136,6 @@
   - Front-end log viewer with filters by user, client, initiative, and action type.
 - **Question:** What retention policy should be applied to logs for performance and privacy reasons?
 
----
 
 ### 10. Next Steps & Open Questions  
 - **Immediate Decisions:**  
@@ -168,5 +152,3 @@
 - **Deliverables:**  
   - A decision matrix for webscraping options.  
   - Prototype demos for both relevancy scoring approaches and email draft generation.
-
-This detailed outline should serve as a comprehensive starting point. Please review and clarify the open questions to ensure all team members are aligned.
