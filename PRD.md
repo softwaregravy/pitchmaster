@@ -24,6 +24,8 @@ This PRD covers the V1 feature set for our PR Management System. It focuses on i
 ### Nightly Article Pull
 - **Automated Retrieval**  
   The system gathers relevant articles overnight for each client and initiative.
+- **Semantic Matching**  
+  Articles are matched based on conceptual relevance rather than just keyword searching.
 - **Relevancy Scoring**  
   Articles receive a score based on their content and keywords.
 - **Publicly Traded Clients**  
@@ -36,6 +38,18 @@ This PRD covers the V1 feature set for our PR Management System. It focuses on i
   Each entry shows publication name, a 50-word summary, author, relevancy score, and an optional image.
 - **Draft Pitch Link**  
   Clicking an entry lets users view full details or start a pitch draft.
+
+### Smart Pitch Draft Generation
+- **Training-Based Drafts**  
+  Users can upload 10-100 past pitch emails to train the system to generate drafts in their style and voice.
+- **Contextual Drafting**  
+  The generated draft references guidelines and previous pitches to maintain consistency.
+- **Journalist-Specific Tailoring** *(Future Feature)*  
+  Over time, the system will collect data on which pitches work for specific journalists to further personalize outreach.
+- **Journalist Email Inclusion** *(MVP)*  
+  If available, the draft will include the journalist’s email.
+- **Journalist Database** *(Future Feature)*  
+  A centralized journalist database will track past articles, past reach-outs, success rates, and any relevant learnings.
 
 ### Pitch Integration
 - **Draft Generation**  
@@ -81,6 +95,12 @@ This PRD covers the V1 feature set for our PR Management System. It focuses on i
   Generate flexible report templates for clients.
 - **Feedback-Driven Relevancy**  
   Users rate or comment on article relevance to refine scoring.
+- **Journalist-Specific Tailoring**  
+  Collect and analyze which pitches work best for specific journalists.
+- **Publication Reach Metrics**  
+  Include stats on publication readership to help prioritize outreach efforts.
+- **Social Media Integration**  
+  Extend all core capabilities (article pulls, drafting, outreach tracking) to social media.
 
 ## Timeline & Next Steps
 - **Primary Feature Delivery**  
@@ -89,3 +109,4 @@ This PRD covers the V1 feature set for our PR Management System. It focuses on i
   Roll out internally to confirm product-market fit.
 - **Further Enhancements**  
   Use feedback to prioritize new features and potential pivots.
+
