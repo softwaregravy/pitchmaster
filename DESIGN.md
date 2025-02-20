@@ -69,6 +69,7 @@
   - Schedule a nightly background job to crawl designated periodicals and retrieve new articles.  
   - For each article, parse the content and generate a lightweight embedding using a candidate model (e.g., OpenAI’s `text-embedding-ada-002` or a Sentence Transformer).  
   - Store both the raw article data and its embedding in a vector database (e.g., FAISS, Pinecone, or Milvus).  
+  - Semantic Matching: Articles are matched based on conceptual relevance rather than just keyword searching. The embedding and vector search database already performs concept-based matching.
 - **Error Logging:**  
   - Capture parsing and network errors in a centralized log.  
   - Update periodical status and trigger automated retries upon repeated failures.  
@@ -90,20 +91,26 @@
 - **Deliverables:**  
   - A prototype scoring engine with API endpoints and benchmark reports comparing baseline versus sentiment-enhanced relevancy.
 
-### 7. Morning Article List & Pitch Drafts  
-- **Article Listing:**  
-  - Retrieve and display articles sorted by the refined scores combining relevance and sentiment.  
-  - Provide options for viewing both top-tier articles and a broader “below the line” set for extended coverage.  
-- **Content Generation:**  
-  - Automatically generate a concise (<50 word) summary for each article, highlighting its relevance to the brand/initiative.  
-- **Pitch Draft Generation:**  
-  - Offer a “Pitch Journalist” link that pre-fills an email draft with references to the brand guidelines and pitch samples using URL parameters.  
-  - Note: V1 does not send emails directly; users will need to copy or export the draft.  
-- **Export Options:**  
-  - Include CSV export functionality for integration with external tools like Google Sheets or Airtable.  
-- **Deliverables:**  
+
+### 7. Morning Article List & Pitch Drafts
+
+- **Article Listing:**
+  - Retrieve and display articles sorted by the refined scores combining relevance and sentiment.
+  - Provide options for viewing both top-tier articles and a broader “below the line” set for extended coverage.
+- **Content Generation:**
+  - Automatically generate a concise (<50 word) summary for each article, highlighting its relevance to the brand/initiative.
+- **Pitch Draft Generation:**
+  - **Training-Based Drafts:** Users can upload 10-100 past pitch emails to train the system to generate drafts in their style and voice.
+  - **Contextual Drafting:** The generated draft references guidelines and previous pitches to maintain consistency.
+  - **Journalist Email Inclusion:** If available, the draft will include the journalist’s email.
+  - **User Upload Interface:** Users can upload past emails via the dashboard for training.
+  - Offer a “Pitch Journalist” link that pre-fills an email draft with references to the brand guidelines and pitch samples using URL parameters.
+  - Note: V1 does not send emails directly; users will need to copy or export the draft.
+- **Export Options:**
+  - Include CSV export functionality for integration with external tools like Google Sheets or Airtable.
+- **Deliverables:**
   - An automated daily article list generation job, integrated with a refined scoring mechanism, email draft generation service, and CSV export tool within the dashboard.
-    
+
 ### 8. User Management & Permissions  
 - **Roles & Models:**  
   - **User Model:** Standard Devise integration for email/password authentication.  
@@ -132,7 +139,6 @@
   - ActivityLog model with clear associations and metadata.  
   - Front-end log viewer with filters by user, client, initiative, and action type.
 - **Question:** What retention policy should be applied to logs for performance and privacy reasons?
-
 
 ### 10. Next Steps & Open Questions  
 - **Immediate Decisions:**  
