@@ -25,6 +25,15 @@
 
 **Deliverable:** Rails app successfully deployed to Heroku with CI/CD pipeline running
 
+### **Section 0: Feasability**
+- [ ] Write prompt template to generate search terms
+- [ ] Implement Rakefile to call OpenAI API to generate search terms using static input
+- [ ] Design geting sentiment score using OpanAI API
+- [ ] Implement Rakefile to generage sentiment scores via OpenAI using static input
+- [ ] curl command to Perigon's api /articles
+- [ ] Implement Rakefile  to call Perigons' api with static input
+- [ ] Implement Rakefile which contains the body of an email
+
 ## **Phase 2: Core Models & Database Setup**
 
 ### **Section 3: User & Authentication**
@@ -54,33 +63,34 @@
 - [ ] Create `Initiative` model (title, description, goals, scope, messaging, launch dates, associated client_id)
 - [ ] Create `InitiativeSearchTerm` model for initiative-specific queries
 - [ ] Implement UI for creating and editing initiatives
-- [ ] Auto-generate search terms when an initiative is created/edited
+- [ ] Queue Auto-generate search terms job when an initiative is created/edited
+- [ ] Write job to auto-generate search terms using OpenAI API
+- [ ] Implement logic to refine generated search terms based on initiative details
 - [ ] Write model validations for required fields
 - [ ] Implement UI to display initiatives per client
 - [ ] Write happy path tests for initiative creation
 
-**Deliverable:** CRUD for Initiatives with auto-generated search terms
+**Deliverable:** CRUD for Initiatives with auto-generated search terms using OpenAI API
 
 ### **Section 6: Nightly Article Fetching**
 - [ ] Implement Perigon API integration (`GET /v1/articles` with relevant filters)
-- [ ] Store fetched articles in an `Article` model, per client per day
+- [ ] Store fetched articles in an `Article` model, associated with initiatives per day
 - [ ] Deduplicate articles before storing
 - [ ] Create a background job using GoodJob to fetch articles nightly
 - [ ] Add logging for API failures
-- [ ] Write tests for API response parsing
-- [ ] Implement basic UI for viewing fetched articles
+- [ ] Implement basic UI for viewing fetched articles per initiative
 - [ ] Ensure only relevant articles are stored based on search terms
 - [ ] Display API quota usage in logs
 
-**Deliverable:** Nightly background job successfully fetching articles
+**Deliverable:** Nightly background job successfully fetching articles per initiative
 
 ## **Phase 4: Relevancy & Pitch Drafts**
 
 ### **Section 7: Relevancy & Sentiment Analysis**
+- [ ] Create our own sentiment scores using OpenAI API
 - [ ] Implement logic to compare Perigon’s relevancy score with our sentiment adjustments
 - [ ] Store the adjusted relevancy scores in the database
 - [ ] Ensure articles can be filtered by relevancy score in the UI
-- [ ] Implement UI sorting by relevancy score
 - [ ] Write happy path tests for sentiment adjustments
 - [ ] Create a background job to update relevancy scores daily
 
@@ -89,23 +99,24 @@
 ### **Section 8: Pitch Prompt Generation**
 - [ ] Create `PitchArtifact` model to store past pitch data per User
 - [ ] Implement user file upload for past pitches
-- [ ] Generate initial pitch drafts based on uploaded data and guidelines
+- [ ] Generate initial pitch drafts based on uploaded data and guidelines using OpenAI API
+- [ ] Break pitch generation into multiple steps, ensuring brand guidelines are respected
 - [ ] Provide UI for users to view and refine pitch prompt
 - [ ] Implement history tracking for pitch prompts
 - [ ] Write happy path tests for pitch generation
 
-**Deliverable:** Basic pitch prompt generation working
+**Deliverable:** Basic pitch prompt generation working using OpenAI API
 
 ## **Phase 5: Full End-to-End Workflow**
 
 ### **Section 9: Morning Article List & Export**
-- [ ] Display a daily list of relevant articles per client
+- [ ] Display a daily list of relevant articles per initiative
 - [ ] Generate short summaries for each article, with links to full article and assets
-- [ ] Show our relevancy score, Perigon's score, and our adjusted score. 
+- [ ] Show our relevancy score, Perigon's score, and our adjusted score.
 - [ ] Use the user's pitch prompt to generate a Pitch Draft for the article
 - [ ] Make a link to this draft available on each row, with the body of the draft encoded in the URL
 
-**Deliverable:** Morning article list UI 
+**Deliverable:** Morning article list UI per initiative
 
 ### **Section 10: E2E Testing & Final Staging Deployment**
 - [ ] Write happy path tests for all core features
