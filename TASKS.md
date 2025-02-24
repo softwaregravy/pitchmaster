@@ -25,18 +25,20 @@
 
 **Deliverable:** Rails app successfully deployed to Heroku with CI/CD pipeline running
 
-### **Section 0: Feasability**
+### **Section 3: Feasibility**
 - [ ] Write prompt template to generate search terms
 - [ ] Implement Rakefile to call OpenAI API to generate search terms using static input
-- [ ] Design geting sentiment score using OpanAI API
-- [ ] Implement Rakefile to generage sentiment scores via OpenAI using static input
-- [ ] curl command to Perigon's api /articles
-- [ ] Implement Rakefile  to call Perigons' api with static input
+- [ ] Design getting sentiment score using OpenAI API
+- [ ] Implement Rakefile to generate sentiment scores via OpenAI using static input
+- [ ] curl command to Perigon's API `/articles`
+- [ ] Implement Rakefile to call Perigon's API with static input
 - [ ] Implement Rakefile which contains the body of an email
+
+**Deliverable:** Basic feasibility tests for AI and API integrations
 
 ## **Phase 2: Core Models & Database Setup**
 
-### **Section 3: User & Authentication**
+### **Section 4: User & Authentication**
 - [ ] Create a `User` model with Devise authentication
 - [ ] Allow User signup and login/logout
 - [ ] Implement authentication using Omniauth for Google login
@@ -45,7 +47,7 @@
 
 **Deliverable:** Admin authentication working with Devise and Omniauth
 
-### **Section 4: Client & Brand Guidelines Models**
+### **Section 5: Client & Brand Guidelines Models**
 - [ ] Create `Client` model with name, industry, contact details
 - [ ] Create `BrandGuideline` model with voice, messaging, audience fields
 - [ ] Associate `BrandGuideline` with `Client`
@@ -59,12 +61,12 @@
 
 ## **Phase 3: Initiatives & Article Processing**
 
-### **Section 5: Initiatives Model & UI**
+### **Section 6: Initiatives Model & UI**
 - [ ] Create `Initiative` model (title, description, goals, scope, messaging, launch dates, associated client_id)
 - [ ] Create `InitiativeSearchTerm` model for initiative-specific queries
 - [ ] Implement UI for creating and editing initiatives
-- [ ] Queue Auto-generate search terms job when an initiative is created/edited
-- [ ] Write job to auto-generate search terms using OpenAI API
+- [ ] Auto-generate search terms when an initiative is created/edited
+- [ ] Feed client and brand guidelines into OpenAI API to generate search terms
 - [ ] Implement logic to refine generated search terms based on initiative details
 - [ ] Write model validations for required fields
 - [ ] Implement UI to display initiatives per client
@@ -72,12 +74,13 @@
 
 **Deliverable:** CRUD for Initiatives with auto-generated search terms using OpenAI API
 
-### **Section 6: Nightly Article Fetching**
+### **Section 7: Nightly Article Fetching**
 - [ ] Implement Perigon API integration (`GET /v1/articles` with relevant filters)
-- [ ] Store fetched articles in an `Article` model, associated with initiatives per day
+- [ ] Store fetched articles in an `Article` model, associated with initiatives
 - [ ] Deduplicate articles before storing
 - [ ] Create a background job using GoodJob to fetch articles nightly
 - [ ] Add logging for API failures
+- [ ] Write tests for API response parsing
 - [ ] Implement basic UI for viewing fetched articles per initiative
 - [ ] Ensure only relevant articles are stored based on search terms
 - [ ] Display API quota usage in logs
@@ -86,7 +89,7 @@
 
 ## **Phase 4: Relevancy & Pitch Drafts**
 
-### **Section 7: Relevancy & Sentiment Analysis**
+### **Section 8: Relevancy & Sentiment Analysis**
 - [ ] Create our own sentiment scores using OpenAI API
 - [ ] Implement logic to compare Perigon’s relevancy score with our sentiment adjustments
 - [ ] Store the adjusted relevancy scores in the database
@@ -96,7 +99,7 @@
 
 **Deliverable:** Relevancy and sentiment scoring pipeline functional
 
-### **Section 8: Pitch Prompt Generation**
+### **Section 9: Pitch Prompt Generation**
 - [ ] Create `PitchArtifact` model to store past pitch data per User
 - [ ] Implement user file upload for past pitches
 - [ ] Generate initial pitch drafts based on uploaded data and guidelines using OpenAI API
@@ -109,7 +112,7 @@
 
 ## **Phase 5: Full End-to-End Workflow**
 
-### **Section 9: Morning Article List & Export**
+### **Section 10: Morning Article List & Export**
 - [ ] Display a daily list of relevant articles per initiative
 - [ ] Generate short summaries for each article, with links to full article and assets
 - [ ] Show our relevancy score, Perigon's score, and our adjusted score.
@@ -118,7 +121,16 @@
 
 **Deliverable:** Morning article list UI per initiative
 
-### **Section 10: E2E Testing & Final Staging Deployment**
+### **Section 11: Durability of External Calls**
+- [ ] Implement job wrapping for all OpenAI API calls to allow retries and exponential backoff on rate limits
+- [ ] Implement job wrapping for Perigon API calls using the same retry strategy
+- [ ] Define job failure handling; after X retries, move to a dead letter queue
+- [ ] Utilize GoodJob’s built-in failure handling mechanisms where possible
+- [ ] Monitor and log API failure patterns for better debugging
+
+**Deliverable:** Reliable API call execution with automated retry handling
+
+### **Section 12: E2E Testing & Final Staging Deployment**
 - [ ] Write happy path tests for all core features
 - [ ] Run full test suite in GitHub Actions before each deployment
 - [ ] Deploy to staging and confirm E2E flows are functional
