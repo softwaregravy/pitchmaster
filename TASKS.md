@@ -30,9 +30,9 @@
 - [ ] Implement Rakefile to call OpenAI API to generate search terms using static input
 - [ ] Design getting sentiment score using OpenAI API
 - [ ] Implement Rakefile to generate sentiment scores via OpenAI using static input
-- [ ] curl command to Perigon's API `/articles`
+- [ ] curl command to Perigon's API `/articles`, using search terms from previous steps
 - [ ] Implement Rakefile to call Perigon's API with static input
-- [ ] Implement Rakefile which contains the body of an email
+- [ ] Implement Rakefile which contains the body of an email in a link
 
 **Deliverable:** Basic feasibility tests for AI and API integrations
 
@@ -41,9 +41,7 @@
 ### **Section 4: User & Authentication**
 - [ ] Create a `User` model with Devise authentication
 - [ ] Allow User signup and login/logout
-- [ ] Implement authentication using Omniauth for Google login
-- [ ] Write happy path tests for authentication
-- [ ] Implement logout functionality
+- [ ] Support logout functionality
 
 **Deliverable:** Admin authentication working with Devise and Omniauth
 
